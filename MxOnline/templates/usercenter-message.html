@@ -1,0 +1,98 @@
+{% extends 'usercenter_base.html' %}
+{% load staticfiles %}
+{% block title %}用户中心--慕学在线网{% endblock %}
+
+{% block header2 %}
+<div class="middle companyheader">
+        <div class="wp">
+            <img class="fl" style="width: 112px;height: 103px" src="{{ MEDIA_URL }}{{ course_org.image }}"/>
+            <div class="head fl">
+                <h1>
+                    {{ course_org.name }}
+                    <img src="{% static 'images/authentication.png' %}"/>
+                    <img src="{% static 'images/gold.png' %}"/>
+                </h1>
+                <p class="fl">
+                    <span class="fl" style="margin-top:8px;color:#848484;">推荐指数： </span>
+                    <span class="precision company-credit" data-star-scope="5.0"></span>
+                    <span class="key">5.0</span>
+                </p>
+            </div>
+            <div class="btn fr collectionbtn  notlogin
+                 "data-favid="22" data-fav-type="1">
+                 {% if has_fav %}已收藏{% else %}收藏{% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_bread %}
+  <section>
+    <div class="wp">
+        <ul  class="crumbs">
+            <li><a href="/">首页</a>></li>
+            <li><a href="{% url 'users:usercenter_info' %}">个人中心</a>></li>
+            <li>我的消息</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}
+
+{% block right_content %}
+<div class="right" >
+		<div class="personal_des Releasecont">
+			<div class="head">
+				<h1>我的消息</h1>
+			</div>
+
+		</div>
+		<div class="personal_des permessage">
+			<div class="head">
+				<ul class="tab_header messagehead">
+					<li class="active"><a href="{% url 'users:usercenter_msg' %}">个人消息</a> </li>
+				</ul>
+
+
+			</div>
+			<div class="messagelist">
+                {% for msg in msgs.object_list %}
+                    <div class="messages">
+                        <div class="fr">
+                            <div class="top"><span class="fl time">{{ msg.add_time }}</span><span class="fr btn foldbtn"></span></div>
+                            <p>
+                                {{ msg.message }}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+
+
+			</div>
+
+
+			<div class="pageturn pagerright">
+                <ul class="pagelist">
+                        {% if msgs.has_previous %}
+                            <li class="long"><a href="?{{ msgs.previous_page_number.querystring }}">上一页</a></li>
+                        {% endif %}
+
+                        {% for page in msgs.pages %}
+                            {% if page %}
+                                {% ifequal page msgs.number %}
+                                    <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                                {% else %}
+                                    <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                                {% endifequal %}
+                            {% else %}
+                                <li class="none"><a href="">...</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if msgs.has_next %}
+                            <li class="long"><a href="?{{ msgs.next_page_number.querystring }}">下一页</a></li>
+                        {% endif %}
+                        </ul>
+            </div>
+		</div>
+
+	</div>
+{% endblock %}

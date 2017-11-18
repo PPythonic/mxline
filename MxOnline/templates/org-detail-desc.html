@@ -1,0 +1,34 @@
+{% extends 'org_base.html' %}
+{% load staticfiles %}
+{% block title %}机构介绍{% endblock %}
+
+{% block nav %}
+            <nav>
+				<div class="nav">
+					<div class="wp">
+						<ul>
+							<li><a href="http://127.0.0.1:8000">首页</a></li>
+                            <li><a href="{% url 'course:course_list' %}">
+                                公开课<img class="hot" src="{% static 'images/nav_hot.png' %}">
+                            </a></li>
+							<li>
+								<a href="{% url 'org:teachers_list' %}">授课教师</a>
+							</li>
+							<li  class="active"><a href="{% url 'org:org_list' %}">授课机构</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+{% endblock %}
+
+{% block right_form %}
+<div class="right companycenter layout" >
+        <div class="head">
+            <h1>机构介绍</h1>
+        </div>
+        <div class="des">
+            <p>{{ course_org.desc }}</p>
+        </div>
+    </div>
+{% endblock %}
+

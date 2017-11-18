@@ -1,0 +1,5 @@
+python3.6安装xadmin:
+    pip install git+git://github.com/sshwsfc/xadmin.git(不推荐）
+    参考地址：http://blog.csdn.net/u010358168/article/details/72934494
+    推荐源码安装--从github下载源码，解压放在extra_apps,设置extra_apps为source root
+    然后进行相关配置 详细安装参考上面地址，需要注意的是3.6需要额外安装模块django-import-export

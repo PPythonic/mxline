@@ -1,0 +1,72 @@
+{% extends 'usercenter_base.html' %}
+{% load staticfiles %}
+{% block title %}用户中心--慕学在线网{% endblock %}
+
+{% block header2 %}
+<div class="middle companyheader">
+        <div class="wp">
+            <img class="fl" style="width: 112px;height: 103px" src="{{ MEDIA_URL }}{{ course_org.image }}"/>
+            <div class="head fl">
+                <h1>
+                    {{ course_org.name }}
+                    <img src="{% static 'images/authentication.png' %}"/>
+                    <img src="{% static 'images/gold.png' %}"/>
+                </h1>
+                <p class="fl">
+                    <span class="fl" style="margin-top:8px;color:#848484;">推荐指数： </span>
+                    <span class="precision company-credit" data-star-scope="5.0"></span>
+                    <span class="key">5.0</span>
+                </p>
+            </div>
+            <div class="btn fr collectionbtn  notlogin
+                 "data-favid="22" data-fav-type="1">
+                 {% if has_fav %}已收藏{% else %}收藏{% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_bread %}
+  <section>
+    <div class="wp">
+        <ul  class="crumbs">
+            <li><a href="/">首页</a>></li>
+            <li><a href="/user/home/">个人中心</a>></li>
+            <li>我的课程</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}
+
+{% block right_content %}
+<div class="right" >
+		<div class="personal_des Releasecont">
+			<div class="head">
+				<h1>我的课程</h1>
+			</div>
+		</div>
+		<div class="personal_des permessage">
+			<div class="companycenter">
+				<div class="group_list brief">
+                    {% for course in courses %}
+                    <div class="module1_5 box">
+                            <a href="{% url 'course:course_detail' course.id %}">
+                                <img width="214" height="190" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.course.image }}"/>
+                            </a>
+                            <div class="des">
+                                <a href="course-detail.html"><h2>{{ course.course.name }}</h2></a>
+                                <span class="fl">课时：<i class="key">{{ course.course.learn_time }}</i></span>
+                                <span class="fr">学习人数：{{ course.course.students }}</span>
+                            </div>
+                            <div class="bottom">
+                                <span class="fl">{{ course.course.course_org }}</span>
+                                <span class="star fr  notlogin" data-favid="15">{{ course.course.fav_nums }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
